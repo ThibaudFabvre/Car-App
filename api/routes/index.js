@@ -42,7 +42,7 @@ app.get('/stations', (req, res, next) => {
 app.put('/stations', (req, res, next) => {
     mongo.connect(url, (err, db) => {
         assert.equal(null, err);
-        db.collection('station').put(req.body.name, req.body.newName)
+        db.collection('stations').put(req.body.name, req.body.newName)
         .then((err, results) => {
             assert.equal(null, err);
             console.log('Station updated successfully');
@@ -54,7 +54,7 @@ app.put('/stations', (req, res, next) => {
 app.delete('/stations', (req, res, next) => {
     mongo.connect(url, (err, db) => {
         assert.equal(null, err);
-        db.collection('station').delete(req.body.name, (err, results) => {
+        db.collection('stations').delete(req.body.name, (err, results) => {
             assert.equal(null, err);
             console.log('Station deleted from database');
             db.close();
@@ -64,19 +64,53 @@ app.delete('/stations', (req, res, next) => {
 
 
 app.post('/cars', (req, res, next) => {
-
+    mongo.connect(url, (err, db) => {
+        assert.equal(null, err);
+        db.collection('cars').insertOne(req.body.name, (err, result) => {
+            assert.equal(null, err);
+            console.log('Station added to database');
+            db.close();
+        });
+    });
 });
 
+
 app.get('/cars', (req, res, next) => {
-    
+    let result = [];
+    mongo.connect(url, (err, db) => {
+        assert.equal(null, err);
+        const cursor = db.collection('cars').find();
+        cursor.forEach((doc, err) => {
+            assert.equal(null, err);
+            result.push(doc);
+        }, () => {
+            db.close();
+            res.render('index', { items: result });
+        });
+    });
 });
 
 app.put('/cars', (req, res, next) => {
-
+    mongo.connect(url, (err, db) => {
+        assert.equal(null, err);
+        db.collection('cars').put(req.body.name, req.body.newName)
+            .then((err, results) => {
+                assert.equal(null, err);
+                console.log('Station updated successfully');
+                db.close();
+            });
+    });
 });
 
 app.delete('/cars', (req, res, next) => {
-
+    mongo.connect(url, (err, db) => {
+        assert.equal(null, err);
+        db.collection('cars').delete(req.body.name, (err, results) => {
+            assert.equal(null, err);
+            console.log('Station deleted from database');
+            db.close();
+        });
+    });
 });
 
 

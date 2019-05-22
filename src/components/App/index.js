@@ -1,9 +1,20 @@
 import React from 'react';
+import axio from 'axio';
 
-const App = () => {
-    <div id="App">
-        Salut j'aime les patates
-    </div>
+class App extends React.Component {
+
+    componentDidMount() {
+        axio.get('/stations')
+    }
+
+    render() {
+        return(
+            <>
+
+            </>
+        );
+    }
+
 }
 
 
