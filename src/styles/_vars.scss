@@ -1,0 +1,45 @@
+// Variables CSS
+
+$button-hover: rgb(255, 255, 255);
+$transparent: rgba($color: #ffffff, $alpha: 0.5);
+$button-default: rgb(246, 224, 243);
+
+$gradient-snow: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,0.1) 10%,rgba(255,255,255,0.4) 40%,rgba(255,255,255,0.59) 59%,rgba(255,255,255,0.87) 87%,rgba(255,255,255,1) 100%);
+
+//mixins
+
+@mixin hover-pop() {
+  transform: scale(1.2);
+	-ms-transform: scale(1.2);
+	-webkit-transform: scale(1.2);
+	-o-transform: scale(1.2);
+	-moz-transform: scale(1.2);
+}
+
+@mixin hover-pop-small() {
+  transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	-webkit-transform: scale(1.1);
+	-o-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+}
+
+@mixin standard-button() {
+  font-weight: bold;
+  width: 6rem;
+  padding: 0.25rem;
+  margin: 1rem auto;
+  border-radius: 10%;
+}
+
+@mixin invisible() {
+  visibility: hidden;
+  width: 0rem;
+  height: 0rem;
+}
+
+@mixin standardInput() {
+  padding: 0.32rem;
+  width: 25rem;
+  background-color: $transparent;
+}
