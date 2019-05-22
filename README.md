@@ -1,7 +1,7 @@
 # Car-App
 
 
-Premièrement je vous remercie énormément pour ce test qui a été un vrai plaisir à réaliser même si je n'ai pas réussis à le finir.
+Premièrement je vous remercie énormément pour ce test qui a été un vrai plaisir à réaliser même si je n'ai pas réussi à le finir.
 Celui-ci ne marche pas malheureusement, car je n'ai pas pu finir, ce qui me déçoi un peu car il ne me manquait que quelques minutes pour finir ce test.
 
 Ce qu'il me manque: 
