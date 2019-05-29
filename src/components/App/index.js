@@ -3,13 +3,19 @@ import axios from 'axios';
 
 class App extends React.Component {
 
+    constructor() {
+        super();
+
+    }
+
     state = {
-        stationList : '',
+        stationList: [],
     }
 
     componentDidMount() {
-        axio.get('http://localhost:27017/test/stations')
+        axios.get('http://localhost:27017/test/stations')
             .then((response) => {
+                console.log('Successfully loaded station list ')
                 this.setState({stationList: response.data});
             })
             .catch(() => {
@@ -21,7 +27,7 @@ class App extends React.Component {
     render() {
         return(
             <>
-                {stationList.map(station => {
+                {this.state.stationList.map(station => {
                     <>
                         <h2>{station.name}</h2>
                         <ul>

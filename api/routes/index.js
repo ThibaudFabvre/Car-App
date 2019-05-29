@@ -63,7 +63,7 @@ app.delete('/stations', (req, res, next) => {
 });
 
 
-app.post('/cars', (req, res, next) => {
+app.post('/car/::id', (req, res, next) => {
     mongo.connect(url, (err, db) => {
         assert.equal(null, err);
         db.collection('cars').insertOne(req.body.name, (err, result) => {
@@ -75,7 +75,7 @@ app.post('/cars', (req, res, next) => {
 });
 
 
-app.get('/cars', (req, res, next) => {
+app.get('/car/::id', (req, res, next) => {
     let result = [];
     mongo.connect(url, (err, db) => {
         assert.equal(null, err);
@@ -90,24 +90,24 @@ app.get('/cars', (req, res, next) => {
     });
 });
 
-app.put('/cars', (req, res, next) => {
+app.put('/car/::id', (req, res, next) => {
     mongo.connect(url, (err, db) => {
         assert.equal(null, err);
         db.collection('cars').put(req.body.name, req.body.newName)
             .then((err, results) => {
                 assert.equal(null, err);
-                console.log('Station updated successfully');
+                console.log('Car updated successfully');
                 db.close();
             });
     });
 });
 
-app.delete('/cars', (req, res, next) => {
+app.delete('/car/::id', (req, res, next) => {
     mongo.connect(url, (err, db) => {
         assert.equal(null, err);
         db.collection('cars').delete(req.body.name, (err, results) => {
             assert.equal(null, err);
-            console.log('Station deleted from database');
+            console.log('Car deleted from database');
             db.close();
         });
     });
