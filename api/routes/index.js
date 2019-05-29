@@ -12,6 +12,14 @@ const url = 'mongodb://localhost:27017/test';
 /*
  * Vars
  */
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    next();
+});
+
 app.post('/stations', (req, res, next) => {
     mongo.connect(url, (err, db) => {
         assert.equal(null, err);
@@ -68,7 +76,7 @@ app.post('/car/::id', (req, res, next) => {
         assert.equal(null, err);
         db.collection('cars').insertOne(req.body.name, (err, result) => {
             assert.equal(null, err);
-            console.log('Station added to database');
+            console.log('Car added to database');
             db.close();
         });
     });

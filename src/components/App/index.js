@@ -13,7 +13,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:27017/test/stations')
+        axios.get('https://localhost:27017/test/stations')
             .then((response) => {
                 console.log('Successfully loaded station list ')
                 this.setState({stationList: response.data});
