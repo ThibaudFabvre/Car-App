@@ -24,6 +24,11 @@ app.use((req, res, next) => {
     next();
 });
 
+/**
+ * Station routes
+ */
+
+// @Post : new station
 app.post('/stations', (req, res, next) => {
     MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
         assert.equal(null, err);
@@ -36,8 +41,8 @@ app.post('/stations', (req, res, next) => {
     });
 });
 
-
-app.get('/stations', (req, res, next) => {
+// @Get : One specific station
+app.get('/stations/:name', (req, res, next) => {
     let result= [];
     MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
         assert.equal(null, err);
@@ -53,7 +58,8 @@ app.get('/stations', (req, res, next) => {
     });
 });
 
-app.put('/stations', (req, res, next) => {
+// @Put : One specific station
+app.put('/stations/:name', (req, res, next) => {
     MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
         assert.equal(null, err);
         const db = client.db('test');
@@ -66,7 +72,8 @@ app.put('/stations', (req, res, next) => {
     });
 });
 
-app.delete('/stations', (req, res, next) => {
+// @Delete : One specific station
+app.delete('/stations/:name', (req, res, next) => {
     MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
         assert.equal(null, err);
         const db = client.db('test');
@@ -79,20 +86,12 @@ app.delete('/stations', (req, res, next) => {
 });
 
 
-app.post('/car/::id', (req, res, next) => {
-    MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
-        assert.equal(null, err);
-        const db = client.db('test');
-        db.collection('cars').insertOne(req.body.name, (err, result) => {
-            assert.equal(null, err);
-            console.log('Car added to database');
-            client.close();
-        });
-    });
-});
+/**
+ * Car Routes
+ */
 
-
-app.get('/car/::id', (req, res, next) => {
+// @GET : All cars from all stations
+app.get('/stations/cars', (req, res, next) => {
     let result = [];
     MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
         assert.equal(null, err);
@@ -108,7 +107,53 @@ app.get('/car/::id', (req, res, next) => {
     });
 });
 
-app.put('/car/::id', (req, res, next) => {
+// @Post : new car without station
+app.post('/stations/cars', (req, res, next) => {
+    MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+        assert.equal(null, err);
+        const db = client.db('test');
+        db.collection('cars').insertOne(req.body.name, (err, result) => {
+            assert.equal(null, err);
+            console.log('Car added to database');
+            client.close();
+        });
+    });
+});
+
+// @Post : new car belonging to one specific station
+app.post('/stations/:name/cars', (req, res, next) => {
+    MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+        assert.equal(null, err);
+        const db = client.db('test');
+        db.collection('cars').insertOne(req.body.name, (err, result) => {
+            assert.equal(null, err);
+            console.log('Car added to database');
+            client.close();
+        });
+    });
+});
+
+
+
+// @Get : One car from all stations
+app.get('/stations/cars/:id', (req, res, next) => {
+    let result = [];
+    MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+        assert.equal(null, err);
+        const db = client.db('test');
+        const cursor = db.collection('cars').find();
+        cursor.forEach((doc, err) => {
+            assert.equal(null, err);
+            result.push(doc);
+        }, () => {
+            client.close();
+            res.render('index', { items: result });
+        });
+    });
+});
+
+// @Put: One specific car
+app.put('/stations/cars/:id', (req, res, next) => {
     MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
         assert.equal(null, err);
         const db = client.db('test');
@@ -121,7 +166,8 @@ app.put('/car/::id', (req, res, next) => {
     });
 });
 
-app.delete('/car/::id', (req, res, next) => {
+// @Delete: One specific car
+app.delete('/stations/cars/:id', (req, res, next) => {
     MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
         assert.equal(null, err);
         const db = client.db('test');
