@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
-const carSchema = mongoose.Schema({
-    _id: mongoose.Types.ObjectId,
+const carSchema = new mongoose.Schema({
     station_id: Number,
     name: String,
     available: Boolean,

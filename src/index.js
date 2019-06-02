@@ -10,7 +10,7 @@ import App from 'src/components/App';
 
 
 const rootComponent = (
-            <App />
+    <App />
 );
 
 const target = document.getElementById('root');
